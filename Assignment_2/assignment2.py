@@ -1,75 +1,39 @@
-class ModThreeFSM:
+from fsm import FSM
+
+def mod_three_fsm(binary_string):
     """
-    A Finite State Machine to compute the remainder when a binary string is divided by 3.
-
-    States:
-        S0: Remainder 0
-        S1: Remainder 1
-        S2: Remainder 2
-
-    Transitions:
-        S0 -> '0' -> S0
-        S0 -> '1' -> S1
-        S1 -> '0' -> S2
-        S1 -> '1' -> S0
-        S2 -> '0' -> S1
-        S2 -> '1' -> S2
-    """
-
-    def __init__(self):
-        self.state = 'S0'
-        self.transition_table = {
-            'S0': {'0': 'S0', '1': 'S1'},
-            'S1': {'0': 'S2', '1': 'S0'},
-            'S2': {'0': 'S1', '1': 'S2'}
-        }
-
-    def process_input(self, bit):
-        """Process a single bit and update the FSM state."""
-        self.state = self.transition_table[self.state][bit]
-
-    def get_remainder(self):
-        """Return the remainder based on the current FSM state."""
-        return {'S0': 0, 'S1': 1, 'S2': 2}[self.state]
-
-
-def remainder_when_divided_by_3(binary_string):
-    """
-    Calculate the remainder when a binary string is divided by 3 using a Finite State Machine.
-
+    Computes the remainder when the binary string is divided by 3 using a finite state machine.
+    
     Args:
-        binary_string (str): A binary string to calculate the remainder for.
-
+        binary_string (str): The binary string to evaluate.
+        
     Returns:
         int: The remainder when the binary string is divided by 3.
-
-    Raises:
-        ValueError: If the input contains characters other than '0' or '1'.
     """
-
+    # Define the states, alphabet, initial state, final states, and transition function
+    states = ['S0', 'S1', 'S2']
+    alphabet = ['0', '1']
+    initial_state = 'S0'
+    final_states = ['S0', 'S1', 'S2']
+    transition_function = {
+        ('S0', '0'): 'S0', ('S0', '1'): 'S1',
+        ('S1', '0'): 'S2', ('S1', '1'): 'S0',
+        ('S2', '0'): 'S1', ('S2', '1'): 'S2'
+    }
+    
     # Validate input
     if not binary_string or not all(bit in {'0', '1'} for bit in binary_string):
         raise ValueError("Input must contain only binary characters (0 or 1)")
-
-    # Initialize FSM
-    fsm = ModThreeFSM()
-
-    # Process each bit in the binary string
+    
+    # Create an FSM instance
+    fsm = FSM(states, alphabet, initial_state, final_states, transition_function)
+    
+    # Process the input binary string
     for bit in binary_string:
-        fsm.process_input(bit)
-
-    # Return the remainder
-    return fsm.get_remainder()
-
-
-if __name__ == "__main__":
-   
-    print("Remainder when divided by 3 for '1101' is ", remainder_when_divided_by_3('1101'))
-    print("Remainder when divided by 3 for '1110' is ", remainder_when_divided_by_3('1110'))
-    print("Remainder when divided by 3 for '1111' is ", remainder_when_divided_by_3('1111'))
-    print("Remainder when divided by 3 for '1010' is ", remainder_when_divided_by_3('1010'))
-    print("Remainder when divided by 3 for '0' is ", remainder_when_divided_by_3('0'))
-    print("Remainder when divided by 3 for '1' is ", remainder_when_divided_by_3('1'))
-    print("Remainder when divided by 3 for '1010101010101010101010101010101' is ", remainder_when_divided_by_3('1010101010101010101010101010101'))
-    print("Remainder when divided by 3 for '0000' is ", remainder_when_divided_by_3('0000'))
-    print("Remainder when divided by 3 for '1111' is ", remainder_when_divided_by_3('1111'))
+        fsm.transition(bit)
+    
+    # Map the final state to the corresponding remainder
+    final_state = fsm.get_current_state()
+    state_to_remainder = {'S0': 0, 'S1': 1, 'S2': 2}
+    
+    return state_to_remainder[final_state]
