@@ -34,7 +34,7 @@ Input: '1101' Output: 1 <br />
 Input: '1110' Output: 2 <br />
 Input: '1111' Output: 0 <br /><br />
 One way to implement this would be to convert the input string to a number type and use the modulus operator (%). While that approach will produce the correct answer, for this exercise we suggest you use a more interesting method derived from the world of computer hardware: Finite State Machine (FSM).
-### What is Finite State Machine (FSM)?
+#### What is Finite State Machine (FSM)?
 Let us build an FSM to solve this mod-three problem. It takes the input characters, one at a time, MOST significant bit first and transitions between three states: S0, S1, S2.
 
 ![images](images/FSM.png)
