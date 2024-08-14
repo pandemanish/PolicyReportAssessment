@@ -7,10 +7,10 @@ class TestRemainderWhenDividedBy3:
     def test_binary_string_1101_returns_1(self):
         assert mod_three_fsm('1101') == 1
 
-    # Input empty string returns 0
-    def test_empty_string_returns_0(self):
+    # Input empty string returns an error
+    def test_empty_string_raises_error(self):
         with pytest.raises(ValueError):
-            mod_three_fsm('') == 0
+            mod_three_fsm('')
 
     # Input binary string '1110' returns 2
     def test_binary_string_1110_returns_2(self):
