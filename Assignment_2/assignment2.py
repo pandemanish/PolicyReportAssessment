@@ -34,3 +34,16 @@ def mod_three_fsm(binary_string):
     
     # Get the output from the final state
     return fsm.get_output()
+
+
+if __name__ == "__main__":
+
+    print("Remainder when divided by 3 for '1101' is ", mod_three_fsm('1101'))
+    print("Remainder when divided by 3 for '1110' is ", mod_three_fsm('1110'))
+    print("Remainder when divided by 3 for '1111' is ", mod_three_fsm('1111'))
+    print("Remainder when divided by 3 for '1010' is ", mod_three_fsm('1010'))
+    print("Remainder when divided by 3 for '0' is ", mod_three_fsm('0'))
+    print("Remainder when divided by 3 for '1' is ", mod_three_fsm('1'))
+    print("Remainder when divided by 3 for '1010101010101010101010101010101' is ", mod_three_fsm('1010101010101010101010101010101'))
+    print("Remainder when divided by 3 for '0000' is ", mod_three_fsm('0000'))
+    print("Remainder when divided by 3 for '1111' is ", mod_three_fsm('1111'))
